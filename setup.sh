@@ -12,7 +12,7 @@ sudo apt-get install python3-pip -y
 sudo apt-get install git -y
 
 
-wget -o getdocker.sh https://get.docker.com/
+wget -O getdocker.sh https://get.docker.com/
 chmod +x getdocker.sh
 sudo ./getdocker.sh
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
