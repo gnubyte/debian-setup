@@ -7,6 +7,9 @@ sudo apt-get install wget -y
 sudo apt-get install curl -y
 sudo apt-get install ufw -y
 sudo apt-get install fail2ban -y
+sudo apt-get install python3 -y 
+sudo apt-get install python3-pip -y
+sudo apt-get install git -y
 
 
 wget -o getdocker.sh https://get.docker.com/
