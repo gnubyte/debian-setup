@@ -1,4 +1,4 @@
-cat uname -a >> systeminfo
+uname -a >> systeminfo
 cat /etc/*release* >> systeminfo
 
 apt-get install sudo -y
