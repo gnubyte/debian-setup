@@ -3,6 +3,7 @@ cat /etc/*release* >> systeminfo
 
 apt-get install sudo -y
 sudo apt-get update -y
+sudo apt-get install software-properties-common -y
 sudo apt-get install wget -y
 sudo apt-get install curl -y
 sudo apt-get install ufw -y
