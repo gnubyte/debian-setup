@@ -1,0 +1,15 @@
+
+# Debian 8+ Setup script
+
+Used to quickly setup all the normal stuff that you'd expect to see on a server. 
+
+ - Default JDK
+ - Default JRE
+ - Python3
+ - Python3 Pip
+ - fail2ban
+ - ufw
+ - git
+ - software common properties
+ - build-essential (GCC)
+ - manpages-dev
