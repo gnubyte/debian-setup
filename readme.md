@@ -13,3 +13,18 @@ Used to quickly setup all the normal stuff that you'd expect to see on a server.
  - software common properties
  - build-essential (GCC)
  - manpages-dev
+
+
+## Using this Script
+
+pretty on the nose but regardless:
+
+`git clone https://github.com/gnubyte/debian-setup.git`
+
+then 
+
+`chmod +x setup.sh`
+
+then
+
+`./setup.sh`
