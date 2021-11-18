@@ -15,6 +15,8 @@ sudo apt-get install default-jdk -y
 sudo apt-get install default-jre -y
 sudo apt-get install build-essential -y
 sudo apt-get install manpages-dev -y
+sudo apt-get install htop -y 
+sudo apt install libssl-dev -y
 
 wget -O getdocker.sh https://get.docker.com/
 chmod +x getdocker.sh
