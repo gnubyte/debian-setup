@@ -18,10 +18,7 @@ sudo apt-get install manpages-dev -y
 sudo apt-get install htop -y 
 sudo apt install libssl-dev -y
 
-wget -O getdocker.sh https://get.docker.com/
-chmod +x getdocker.sh
-sudo ./getdocker.sh
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-docker-compose --version >> systeminfo
 
+sudo apt-get install podman
+podman machine init
+pip3 install podman-compose
