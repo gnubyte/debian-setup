@@ -16,7 +16,7 @@ sudo apt-get install manpages-dev -y
 sudo apt-get install htop -y 
 sudo apt install libssl-dev -y
 sudo apt install ca-certificates -y 
-
+curl https://bun.sh/install | bash
 
 sudo apt-get install podman
 podman machine init
