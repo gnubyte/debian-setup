@@ -10,9 +10,16 @@ Used to quickly setup all the normal stuff that you'd expect to see on a server.
  - fail2ban
  - ufw
  - git
+ - nodejs
+ - npm
+ - libssl-dev
  - software common properties
  - build-essential (GCC)
  - manpages-dev
+ - podman
+ - podman-compose
+ - docker
+ - docker-compose
 
 
 ## Using this Script
