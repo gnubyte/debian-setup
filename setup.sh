@@ -19,7 +19,7 @@ sudo apt install ca-certificates -y
 curl https://bun.sh/install | bash
 
 #podman
-sudo apt-get install podman
+sudo apt-get install podman -y
 podman machine init
 pip3 install podman-compose
 
