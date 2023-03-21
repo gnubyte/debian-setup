@@ -1,4 +1,4 @@
-wget -O splunkforwarder-9.0.4-de405f4a7979-linux-2.6-amd64.deb "https://download.splunk.com/products/universalforwarder/releases/9.0.4/linux/splunkforwarder-9.0.4-de405f4a7979-linux-2.6-amd64.deb
+wget -O splunkforwarder-9.0.4-de405f4a7979-linux-2.6-amd64.deb "https://download.splunk.com/products/universalforwarder/releases/9.0.4/linux/splunkforwarder-9.0.4-de405f4a7979-linux-2.6-amd64.deb"
 dpkg -i splunkforwarder-9.0.4-de405f4a7979-linux-2.6-amd64.deb
 /opt/splunkforwarder/bin/splunk enable boot-start --no-prompt --accept-license
 
