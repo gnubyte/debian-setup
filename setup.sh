@@ -18,6 +18,7 @@ sudo apt install libssl-dev -y
 sudo apt install ca-certificates -y 
 sudo apt install snapd -y
 curl https://bun.sh/install | bash
+sudo npm i -g @quasar/cli
 
 #podman
 sudo apt-get install podman -y
