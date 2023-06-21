@@ -1,5 +1,5 @@
 
-# Debian 8+ Setup script
+# Debian Setup script
 
 Used to quickly setup all the normal stuff that you'd expect to see on a server. 
 
