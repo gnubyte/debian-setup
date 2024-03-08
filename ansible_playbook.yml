@@ -1,0 +1,69 @@
+---
+- name: Setup system dependencies on Debian 12
+  hosts: all
+  become: yes  # This is equivalent to using 'sudo' for all tasks
+  tasks:
+
+    - name: Install required packages
+      apt:
+        name:
+          - sudo
+          - software-properties-common
+          - wget
+          - curl
+          - ufw
+          - fail2ban
+          - python3
+          - python3-pip
+          - nodejs
+          - npm
+          - git
+          - default-jdk
+          - default-jre
+          - build-essential
+          - manpages-dev
+          - htop
+          - libssl-dev
+          - ca-certificates
+          - snapd
+          - podman
+        update_cache: yes
+        state: present
+
+    - name: Install Bun.sh
+      ansible.builtin.shell: |
+        curl https://bun.sh/install | bash
+      args:
+        executable: /bin/bash
+      become_user: "{{ ansible_env.SUDO_USER | default(ansible_env.USER) }}"
+      environment:
+        PATH: "{{ ansible_env.PATH }}:/usr/local/bin"
+    
+    - name: Install global @quasar/cli via npm
+      npm:
+        name: "@quasar/cli"
+        global: yes
+
+    - name: Initialize podman machine
+      command: podman machine init
+      become: false  # This should run as the normal user, not root
+    
+    - name: Install podman-compose via pip3
+      pip:
+        name: podman-compose
+        state: present
+
+    - name: Install Docker
+      ansible.builtin.shell: |
+        wget -O getdocker.sh https://get.docker.com/
+        chmod +x getdocker.sh
+        ./getdocker.sh
+      args:
+        executable: /bin/bash
+
+    - name: Install Docker Compose
+      ansible.builtin.shell: |
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+      args:
+        executable: /bin/bash
