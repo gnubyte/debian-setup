@@ -17,6 +17,7 @@ sudo apt-get install htop -y
 sudo apt install libssl-dev -y
 sudo apt install ca-certificates -y 
 sudo apt install snapd -y
+sudo apt-get install unzip -y
 curl https://bun.sh/install | bash
 sudo npm i -g @quasar/cli
 
