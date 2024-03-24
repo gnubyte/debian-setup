@@ -49,10 +49,10 @@ if [ -f "/etc/os-release" ]; then
         echo "$backports_url" > /etc/apt/sources.list.d/backports.list
         
         # Update apt
-        apt update
+        apt update -y
         
         # Install Cockpit from backports using the codename
-        apt install -t "${VERSION_CODENAME}-backports" cockpit
+        apt install -t "${VERSION_CODENAME}-backports" cockpit -y
     else
         echo "Error: Unable to determine Debian version codename."
         exit 1
