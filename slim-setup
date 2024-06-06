@@ -21,7 +21,138 @@ curl https://bun.sh/install | bash
 
 
 
-#docker
+# Get and install Docker
 wget -O getdocker.sh https://get.docker.com/
 chmod +x getdocker.sh
 sudo ./getdocker.sh
+
+# =========
+# Below is related to updates
+
+# Enable auto updates
+echo "Enabling auto updates..."
+sudo apt-get install -y unattended-upgrades
+sudo dpkg-reconfigure -plow unattended-upgrades
+
+# Configure the unattended-upgrades package
+sudo bash -c 'cat << EOF > /etc/apt/apt.conf.d/20auto-upgrades
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+EOF'
+
+# Create a script to check for updates and apply them daily
+echo "Creating daily update script..."
+sudo bash -c 'cat << EOF > /etc/cron.daily/apt-upgrade
+#!/bin/bash
+apt-get update
+apt-get -y upgrade
+EOF'
+
+# Make the script executable
+sudo chmod +x /etc/cron.daily/apt-upgrade
+
+echo "Auto updates enabled and daily update script created."
+
+
+# ========
+# Security Auditing
+
+
+# Update and install necessary packages
+echo "Updating system and installing necessary packages..."
+sudo apt-get update
+sudo apt-get install -y auditd audispd-plugins mailutils
+
+# Enable auditd service
+echo "Enabling auditd service..."
+sudo systemctl enable auditd
+sudo systemctl start auditd
+
+# Configure audit rules
+echo "Configuring audit rules..."
+sudo bash -c 'cat << EOF > /etc/audit/rules.d/audit.rules
+# First rule - delete all
+-D
+
+# Increase the buffers to survive stress events.
+# Make this bigger for busy systems
+-b 8192
+
+# Failure mode
+-f 1
+
+# Audit time changes
+-w /etc/localtime -p wa -k time-change
+-w /etc/timezone -p wa -k time-change
+
+# Audit changes to hostname
+-w /etc/hostname -p wa -k hostname-change
+
+# Audit changes to /etc/hosts
+-w /etc/hosts -p wa -k hosts-change
+
+# Monitor for use of privileged commands
+-a always,exit -F path=/bin/su -F perm=x -k priv-cmd
+-a always,exit -F path=/usr/bin/sudo -F perm=x -k priv-cmd
+-a always,exit -F path=/sbin/shutdown -F perm=x -k priv-cmd
+
+# Monitor file access
+-w /etc/passwd -p wa -k identity
+-w /etc/shadow -p wa -k identity
+-w /etc/group -p wa -k identity
+
+# Monitor logins, logouts, and other user changes
+-w /var/log/lastlog -p wa -k logins
+-w /var/run/faillock/ -p wa -k logins
+-w /var/log/faillog -p wa -k logins
+
+# Audit network configuration changes
+-w /etc/network/ -p wa -k network
+
+# Audit kernel module loading and unloading
+-w /sbin/insmod -p x -k modules
+-w /sbin/rmmod -p x -k modules
+-w /sbin/modprobe -p x -k modules
+-a always,exit -F arch=b64 -S init_module -S delete_module -k modules
+
+# Audit attempts to alter process and file attributes
+-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -k perm_mod
+-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -k perm_mod
+EOF'
+
+# Create a custom action script for sending emails
+echo "Creating custom action script for sending emails..."
+sudo bash -c 'cat << EOF > /etc/audit/audit_email.sh
+#!/bin/bash
+
+# Email address to send notifications to
+EMAIL="admin@openmobo.com"
+
+# Get the audit event
+EVENT=\$(cat)
+
+# Send the email
+echo "\$EVENT" | mail -s "Audit Event Notification" \$EMAIL
+EOF'
+
+# Make the custom action script executable
+sudo chmod +x /etc/audit/audit_email.sh
+
+# Configure audispd to use the custom action script
+echo "Configuring audispd to use the custom action script..."
+sudo bash -c 'cat << EOF > /etc/audisp/plugins.d/au-notify.conf
+active = yes
+direction = out
+path = /etc/audit/audit_email.sh
+type = always
+args =
+format = string
+EOF'
+
+# Restart auditd to apply the new configuration
+echo "Restarting auditd to apply new configuration..."
+sudo systemctl restart auditd
+
+echo "Audit trails enhanced, security configuration applied, and email notifications set up."
