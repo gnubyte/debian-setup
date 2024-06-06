@@ -1,6 +1,8 @@
 
 # Debian Setup script
 
+6-6-2024: The script now has unattended updates and auditd
+
 Used to quickly setup all the normal stuff that you'd expect to see on a server. 
 
  - Default JDK
@@ -16,13 +18,12 @@ Used to quickly setup all the normal stuff that you'd expect to see on a server.
  - software common properties
  - build-essential (GCC)
  - manpages-dev
- - podman
- - podman-compose
  - docker
- - docker-compose
 
 
 ## Using this Script
+
+6-6-2024: I recommend just copying and pasting the slim setup onto a server and running it. Make sure to change the email towards the bottom to yours however.
 
 pretty on the nose but regardless:
 
