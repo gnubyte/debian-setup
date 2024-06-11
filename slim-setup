@@ -17,6 +17,7 @@ sudo apt-get install htop -y
 sudo apt install libssl-dev -y
 sudo apt install ca-certificates -y 
 sudo apt install snapd -y
+sudo apt install uidmap -y
 curl https://bun.sh/install | bash
 
 
