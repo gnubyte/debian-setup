@@ -175,3 +175,4 @@ echo "Restarting auditd to apply new configuration..."
 sudo systemctl restart auditd
 
 echo "Audit trails enhanced, security configuration applied, and email notifications set up."
+rm setup.sh
