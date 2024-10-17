@@ -152,6 +152,8 @@ args =
 format = string
 EOF'
 
+git config --global credential.helper store
+
 
 #!/bin/bash
 
